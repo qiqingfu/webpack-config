@@ -4,11 +4,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+const resolve = dir => path.resolve(__dirname, dir)
 
 module.exports = {
     mode: 'production',
     entry: {
-        app: './src/index.js'
+        app: './src/main.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -22,11 +25,26 @@ module.exports = {
             new OptimizeCSSAssetsPlugin()
         ]
     },
+    resolve: {
+        alias: {
+            'vue$': resolve('node_modules/vue/dist/vue.esm.js'),
+            '@': resolve('src')
+        },
+        extensions: ['.js', '.json', '.vue', '.scss']
+    },
     module: {
         rules: [
             {
                 test: /.js$/,
-                use: 'babel-loader'
+                use: 'babel-loader',
+                exclude: file => (
+                    /node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file)
+                  )
+            },
+            {
+                test: /.vue$/,
+                use: 'vue-loader'
             },
             {
                 test: /.css$/,
@@ -87,6 +105,8 @@ module.exports = {
         ]
     },
     plugins: [
+        // 将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块
+        new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name]_[hash:10].css',
             chunkFilename: '[id].css'

@@ -1,37 +1,55 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+const resolve = dir => path.resolve(__dirname, dir)
 
 module.exports = {
     mode: 'development',
     entry: {
-        app: './src/index.js'
+        app: './src/main.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name]_[chunkhash:10].bundle.js'
+        filename: '[name].js'
     },
     devServer: {
         contentBase: './dist',
         hot: true
     },
+    resolve: {
+        alias: {
+            'vue$': resolve('node_modules/vue/dist/vue.esm.js'),
+            '@': resolve('src')
+        },
+        extensions: ['.js', '.json', '.vue', '.scss']
+    },
     module: {
         rules: [
             {
                 test: /.js$/,
-                use: 'babel-loader'
+                use: 'babel-loader',
+                exclude: file => (
+                    /node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file)
+                  )
+            },
+            {
+                test: /.vue$/,
+                use: 'vue-loader'
             },
             {
                 test: /.css$/,
                 use: [
-                    'style-loader',
+                    'vue-style-loader',
                     'css-loader'
                 ]
             },
             {
                 test: /.less$/,
                 use: [
-                    'style-loader',
+                    'vue-style-loader',
                     'css-loader',
                     'less-loader'
                 ]
@@ -39,7 +57,7 @@ module.exports = {
             {
                 test: /.scss$/,
                 use: [
-                    'style-loader',
+                    'vue-style-loader',
                     'css-loader',
                     'sass-loader'
                 ]
@@ -47,10 +65,16 @@ module.exports = {
             {
                 test: /.(png|jpeg|jpg|svg)$/,
                 use: 'file-loader'
+            },
+            {
+                test: /.png$/,
+                use: 'png-plain-loader'
             }
         ]
     },
     plugins: [
+        // 将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块
+        new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: './index.html',
