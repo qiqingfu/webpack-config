@@ -60,7 +60,15 @@ module.exports = {
                 use: [
                     'vue-style-loader',
                     'css-loader',
-                    'sass-loader'
+                    'sass-loader',
+                    // 移动端开发解开注释
+                    // {
+                    //     loader: 'px2rem-loader',
+                    //     options: {
+                    //         remUnit: 75,
+                    //         remPrecision: 8
+                    //     }
+                    // }
                 ]
             },
             {

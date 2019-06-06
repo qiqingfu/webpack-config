@@ -51,14 +51,15 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: () => [
-                                require('autoprefixer')()
-                            ]
-                        }
-                    }
+                    // 移动端开发解开注释
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         plugins: () => [
+                    //             require('autoprefixer')()
+                    //         ]
+                    //     }
+                    // }
                 ]
             },
             {
@@ -90,7 +91,14 @@ module.exports = {
                             ]
                         }
                     },
-                    'sass-loader'
+                    'sass-loader',
+                    {
+                        loader: 'px2rem-loader',
+                        options: {
+                            remUnit: 75,
+                            remPrecision: 8
+                        }
+                    }
                 ]
             },
             {
