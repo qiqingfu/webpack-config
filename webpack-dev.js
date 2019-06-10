@@ -26,6 +26,7 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
+    devtool: "source-map",
     module: {
         rules: [
             {

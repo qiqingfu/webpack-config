@@ -32,6 +32,7 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
+    devtool: "none",
     module: {
         rules: [
             {
@@ -92,13 +93,13 @@ module.exports = {
                         }
                     },
                     'sass-loader',
-                    {
-                        loader: 'px2rem-loader',
-                        options: {
-                            remUnit: 75,
-                            remPrecision: 8
-                        }
-                    }
+                    // {
+                    //     loader: 'px2rem-loader',
+                    //     options: {
+                    //         remUnit: 75,
+                    //         remPrecision: 8
+                    //     }
+                    // }
                 ]
             },
             {

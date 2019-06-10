@@ -3,12 +3,18 @@
         <h2>基于 Webpack4 从0搭建Vue开发环境</h2>
         <ul>
             <li>支持移动端环境</li>
+            <li>多页面自动化打包</li>
         </ul>
     </div>
 </template>
 <script>
 export default {
-    name: 'App'
+    name: 'App',
+    data() {
+        return {
+
+        }
+    }
 }
 </script>
 <style lang="scss">
@@ -25,7 +31,7 @@ export default {
     }
 
     ul {
-        margin-top: 60px; 
+        margin-top: 60px;
         padding-right: 160px;
         li {
             margin: 10px 0;
