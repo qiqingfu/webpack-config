@@ -5,6 +5,7 @@ const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
 
@@ -23,7 +24,18 @@ module.exports = {
         minimizer: [
             new TerserJSPlugin(),
             new OptimizeCSSAssetsPlugin()
-        ]
+        ],
+        splitChunks: {
+            minSize: 0,
+            cacheGroups: {
+                //Create a commons chunk, which includes all code shared between entry points.
+                commons: {
+                    chunks: 'all',
+                    name: 'commons',
+                    minChunks: 2,
+                }
+            }
+        }
     },
     resolve: {
         alias: {
@@ -41,7 +53,7 @@ module.exports = {
                 exclude: file => (
                     /node_modules/.test(file) &&
                     !/\.vue\.js/.test(file)
-                  )
+                )
             },
             {
                 test: /.vue$/,
@@ -132,6 +144,16 @@ module.exports = {
                 minifyCSS: true,
                 minifyJS: true
             }
+        }),
+        // https://github.com/mmiller42/html-webpack-externals-plugin
+        new HtmlWebpackExternalsPlugin({
+            externals: [
+                {
+                    module: 'vue',
+                    entry: 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
+                    global: 'Vue'
+                }
+            ]
         }),
         new CleanWebpackPlugin()
     ]

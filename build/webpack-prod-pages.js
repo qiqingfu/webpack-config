@@ -19,7 +19,6 @@ const getFile = () => {
             // 入口文件 *.js
             const filePath = fileLists[index]
             const match = filePath.match(/src\/pages\/(.*)\/index.js/)
-            console.log(match)
             const fileName = match[1]
             entry[fileName] = filePath
             htmlWebpackPlugins.push(
@@ -28,7 +27,7 @@ const getFile = () => {
                     filename: `${fileName}.html`,
                     title: fileName,
                     inject: true,
-                    chunks: [fileName],
+                    chunks: ['commons',fileName],
                     minify: {
                         html5: true,
                         collapseWhitespace: true,
@@ -59,7 +58,17 @@ module.exports = {
         minimizer: [
             new TerserJSPlugin(),
             new OptimizeCSSAssetsPlugin()
-        ]
+        ],
+        splitChunks:{
+            minSize: 0,
+            cacheGroups: {
+                commons: {
+                    name: 'commons',
+                    minChunks: 2,
+                    chunks: 'all'
+                }
+            }
+        }
     },
     resolve: {
         alias: {

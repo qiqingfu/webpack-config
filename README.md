@@ -16,3 +16,19 @@ page下面的所有文件夹中的文件都作为一个入口文件。
 
 ##### devtool
 此选项控制是否生成，以及如何生成 source map。合理配置可以加速开发环境中的代码调试和错误定位
+
+
+#### 资源分包
+```javascript
+// 抽离公用文件, minChunks引用的次数,超过2次的文件就抽离成公用的
+splitChunks:{
+    minSize: 0,
+    cacheGroups: {
+        commons: {
+            name: 'commons',
+            minChunks: 2,
+            chunks: 'all'
+        }
+    }
+}
+```
