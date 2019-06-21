@@ -26,16 +26,19 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
-    devtool: "source-map",
+    devtool: 'source-map',
     module: {
         rules: [
             {
                 test: /.js$/,
-                use: 'babel-loader',
+                use: [
+                    'babel-loader',
+                    'eslint-loader'
+                ],
                 exclude: file => (
                     /node_modules/.test(file) &&
                     !/\.vue\.js/.test(file)
-                  )
+                )
             },
             {
                 test: /.vue$/,

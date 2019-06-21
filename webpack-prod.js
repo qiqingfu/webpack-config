@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
@@ -44,7 +44,7 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
-    devtool: "none",
+    devtool: 'none',
     module: {
         rules: [
             {
