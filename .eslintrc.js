@@ -32,6 +32,7 @@ module.exports = {
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "vue/singleline-html-element-content-newline": "off"
     }
 };

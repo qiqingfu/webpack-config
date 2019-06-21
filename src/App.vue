@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <h2>基于 Webpack4 从0搭建Vue开发环境</h2>
-    <ul>
-      <li>支持移动端环境</li>
-      <li>多页面自动化打包</li> 
-    </ul>
+    <div>
+      <v-btn color="green"> Success </v-btn>
+    </div>
   </div>
 </template>
 <script>
