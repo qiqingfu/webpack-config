@@ -32,3 +32,22 @@ splitChunks:{
     }
 }
 ```
+
+#### 统计信息(stats)
+在开发或生产环境中使用 `npm run dev` 或 `npm run build`时, 一些额外插件、包信息不是我们所关心的,只是想要获取某部分 bundle 的信息。可以借助 `friendly-errors-webpack-plugin`插件
+
+```javascript
+   // 开发环境
+   devServer: {
+       stats: 'errors-only'
+   },
+   plugins: [
+        new FriendlyErrorsWebpackPlugin()
+   ]
+
+   // 构建
+   stats: 'errors-only',
+   plugins: [
+       new FriendlyErrorsWebpackPlugin()
+   ]
+```

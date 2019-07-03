@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
 
@@ -17,7 +18,8 @@ module.exports = {
     devServer: {
         contentBase: './dist',
         hot: true,
-        port: '8080'
+        port: '8080',
+        stats: 'errors-only'
     },
     resolve: {
         alias: {
@@ -86,6 +88,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new FriendlyErrorsWebpackPlugin(),
         // 将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块
         new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <h2>基于 Webpack4 从0搭建Vue开发环境</h2>
-    <div>
-      <v-btn color="green"> Success </v-btn>
-    </div>
   </div>
 </template>
 <script>

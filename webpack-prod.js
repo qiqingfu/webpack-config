@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
 
@@ -126,6 +127,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new FriendlyErrorsWebpackPlugin(),
         // 将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
@@ -156,5 +158,6 @@ module.exports = {
             ]
         }),
         new CleanWebpackPlugin()
-    ]
+    ],
+    stats: 'errors-only'
 }
