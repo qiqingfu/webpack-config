@@ -32,7 +32,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /.js$/,
+                test: /\.js$/,
                 use: [
                     'babel-loader',
                     'eslint-loader'
@@ -43,18 +43,18 @@ module.exports = {
                 )
             },
             {
-                test: /.vue$/,
+                test: /\.vue$/,
                 use: 'vue-loader'
             },
             {
-                test: /.css$/,
+                test: /\.css$/,
                 use: [
                     'vue-style-loader',
                     'css-loader'
                 ]
             },
             {
-                test: /.less$/,
+                test: /\.less$/,
                 use: [
                     'vue-style-loader',
                     'css-loader',
@@ -62,7 +62,7 @@ module.exports = {
                 ]
             },
             {
-                test: /.scss$/,
+                test: /\.scss$/,
                 use: [
                     'vue-style-loader',
                     'css-loader',
@@ -78,11 +78,11 @@ module.exports = {
                 ]
             },
             {
-                test: /.(png|jpeg|jpg|svg)$/,
+                test: /\.(png|jpeg|jpg|svg)$/,
                 use: 'file-loader'
             },
             {
-                test: /.png$/,
+                test: /\.png$/,
                 use: 'png-plain-loader'
             }
         ]

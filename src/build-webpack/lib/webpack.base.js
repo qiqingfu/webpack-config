@@ -1,42 +1,18 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserJSPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-
-const resolve = dir => path.resolve(__dirname, dir)
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-    mode: 'production',
+    mode: none,
     entry: {
         app: './src/main.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name]_[chunkhash:10].bundle.js'
-    },
-    optimization: {
-        // 压缩 css代码
-        // 重写 webpack4 默认的最小化器
-        minimizer: [
-            new TerserJSPlugin(),
-            new OptimizeCSSAssetsPlugin()
-        ],
-        splitChunks: {
-            minSize: 0,
-            cacheGroups: {
-                //Create a commons chunk, which includes all code shared between entry points.
-                commons: {
-                    chunks: 'all',
-                    name: 'commons',
-                    minChunks: 2,
-                }
-            }
-        }
+        filename: '[name].js'
     },
     resolve: {
         alias: {
@@ -45,7 +21,6 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
-    devtool: 'none',
     module: {
         rules: [
             {
@@ -128,8 +103,9 @@ module.exports = {
     },
     plugins: [
         new FriendlyErrorsWebpackPlugin(),
-        // 将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块
+        new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name]_[hash:10].css',
             chunkFilename: '[id].css'
@@ -147,18 +123,6 @@ module.exports = {
                 minifyJS: true
             }
         }),
-        // https://github.com/mmiller42/html-webpack-externals-plugin
-        new HtmlWebpackExternalsPlugin({
-            externals: [
-                {
-                    module: 'vue',
-                    entry: 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
-                    global: 'Vue'
-                }
-            ]
-        }),
-        new CleanWebpackPlugin(),
-
         // 构建报错异常处理
         function() {
             this.hooks.done.tap('done', stats => {
