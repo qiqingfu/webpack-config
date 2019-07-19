@@ -50,4 +50,6 @@ splitChunks:{
    plugins: [
        new FriendlyErrorsWebpackPlugin()
    ]
-```
+``` 
+
+## Webpack 直接使用的构建包
