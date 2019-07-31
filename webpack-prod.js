@@ -8,9 +8,16 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
+// Analysis and Construction Speed
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const PerformanceAnalysis = process.env.NODE_ENV !== 'performance'
+const smp = new SpeedMeasurePlugin({
+    disable: PerformanceAnalysis
+})
+
 const resolve = dir => path.resolve(__dirname, dir)
 
-module.exports = {
+module.exports = smp.wrap({
     mode: 'production',
     entry: {
         app: './src/main.js'
@@ -170,4 +177,4 @@ module.exports = {
         }
     ],
     stats: 'errors-only'
-}
+})
