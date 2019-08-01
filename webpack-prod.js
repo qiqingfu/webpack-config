@@ -15,6 +15,15 @@ const smp = new SpeedMeasurePlugin({
     disable: PerformanceAnalysis
 })
 
+// Visualize size of webpack output files with an interactive zoomable treemap.
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const plugins = []
+if (!PerformanceAnalysis) {
+    plugins.push(
+        new BundleAnalyzerPlugin()
+    )
+}
+
 const resolve = dir => path.resolve(__dirname, dir)
 
 module.exports = smp.wrap({
@@ -175,6 +184,6 @@ module.exports = smp.wrap({
                 }
             })
         }
-    ],
+    ].concat(plugins),
     stats: 'errors-only'
 })
