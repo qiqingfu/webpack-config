@@ -66,7 +66,15 @@ module.exports = smp.wrap({
         rules: [
             {
                 test: /\.js$/,
-                use: 'babel-loader',
+                use: [
+                    {
+                        loader: 'thread-loader',
+                        options: {
+                            workers: 3
+                        }
+                    },
+                    'babel-loader'
+                ],
                 exclude: file => (
                     /node_modules/.test(file) &&
                     !/\.vue\.js/.test(file)
