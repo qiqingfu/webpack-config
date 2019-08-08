@@ -7,6 +7,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+// provide an intermediate caching
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const webpack = require('webpack')
 
 // Analysis and Construction Speed
@@ -44,7 +46,8 @@ module.exports = smp.wrap({
                 // Enable/disable multi-process parallel running.
                 // before build time 3378ms
                 // after build time 2872ms
-                parallel: true
+                parallel: true,
+                cache: true
             }),
             new OptimizeCSSAssetsPlugin()
         ],
@@ -79,7 +82,7 @@ module.exports = smp.wrap({
                             workers: 3
                         }
                     },
-                    'babel-loader'
+                    'babel-loader?cacheDirectory=true'
                 ],
                 exclude: file => (
                     /node_modules/.test(file) &&
@@ -202,7 +205,8 @@ module.exports = smp.wrap({
         // 引入分包预编译依赖
         new webpack.DllReferencePlugin({
             manifest: path.resolve(__dirname, 'lib/manifest.json')
-        })
+        }),
+        new HardSourceWebpackPlugin()
     ].concat(plugins),
     stats: 'errors-only'
 })
