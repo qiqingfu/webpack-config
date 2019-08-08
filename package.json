@@ -8,7 +8,8 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack-dev.js",
     "speed": "cross-env NODE_ENV=performance webpack --config webpack-prod.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack-prod.js",
-    "build:pages": "cross-env NODE_ENV=production webpack --config build/webpack-prod-pages.js"
+    "build:pages": "cross-env NODE_ENV=production webpack --config build/webpack-prod-pages.js",
+    "dll": "webpack --config webpack-dll.js "
   },
   "keywords": [],
   "author": "",

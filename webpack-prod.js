@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+const webpack = require('webpack')
 
 // Analysis and Construction Speed
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -196,7 +197,12 @@ module.exports = smp.wrap({
                     process.exit(1)
                 }
             })
-        }
+        },
+
+        // 引入分包预编译依赖
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, 'lib/manifest.json')
+        })
     ].concat(plugins),
     stats: 'errors-only'
 })
