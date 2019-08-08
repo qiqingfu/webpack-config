@@ -39,7 +39,12 @@ module.exports = smp.wrap({
         // 压缩 css代码
         // 重写 webpack4 默认的最小化器
         minimizer: [
-            new TerserJSPlugin(),
+            new TerserJSPlugin({
+                // Enable/disable multi-process parallel running.
+                // before build time 3378ms
+                // after build time 2872ms
+                parallel: true
+            }),
             new OptimizeCSSAssetsPlugin()
         ],
         splitChunks: {
