@@ -29,6 +29,14 @@ if (!PerformanceAnalysis) {
 
 const resolve = dir => path.resolve(__dirname, dir)
 
+// Webpack plugin to remove unused css.
+// Currently invalid
+const glob = require('glob')
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const PATHS = {
+    src: path.join(__dirname, 'src')
+}
+
 module.exports = smp.wrap({
     mode: 'production',
     entry: {
@@ -150,12 +158,38 @@ module.exports = smp.wrap({
             },
             {
                 test: /\.(png|jpeg|jpg|svg)$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name]_[hash:10].[ext]'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name]_[hash:10].[ext]'
+                        }
+                    },
+                    // 统一压缩图片质量
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: {
+                                progressive: true,
+                                quality: 65
+                            },
+                            optipng: {
+                                enabled: false,
+                            },
+                            pngquant: {
+                                quality: '65-90',
+                                speed: 4
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            // the webp option will enable WEBP
+                            webp: {
+                                quality: 75
+                            }
+                        }
                     }
-                }
+                ]
             }
         ]
     },
@@ -166,6 +200,10 @@ module.exports = smp.wrap({
         new MiniCssExtractPlugin({
             filename: '[name]_[hash:10].css',
             chunkFilename: '[id].css'
+        }),
+        // Currently invalid
+        new PurgecssPlugin({
+            paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
         }),
         new HtmlWebpackPlugin({
             template: './index.html',

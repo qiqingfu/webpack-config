@@ -8,7 +8,6 @@ export default {
     name: 'App',
     data() {
         return {
-
         }
     }
 }
@@ -24,21 +23,5 @@ export default {
         margin-top: 80px;
         letter-spacing: .8px;
         color: #3b3b3b;
-    }
-
-    ul {
-        margin-top: 60px;
-        padding-right: 160px;
-        li {
-            margin: 10px 0;
-            position: relative;
-            &::before {
-                content: "•";
-                position: relative;
-                left: -12px;
-                top: 0;
-                color: orange;
-            }
-        }
     }
 </style>

@@ -127,6 +127,35 @@ module.exports = {
   ]
 }
 ``` 
-- 缩小构建目标
+- 缩小构建目标 
+
+- 图片质量压缩 
+`使用imagemin缩小PNG，JPEG，GIF，SVG和WEBP图像` 
+
+```javascript
+    {
+        loader: 'image-webpack-loader',
+        options: {
+            mozjpeg: {
+                progressive: true,
+                quality: 65
+            },
+            optipng: {
+                enabled: false,
+            },
+            pngquant: {
+                quality: '65-90',
+                speed: 4
+            },
+            gifsicle: {
+                interlaced: false,
+            },
+            // the webp option will enable WEBP
+            webp: {
+                quality: 75
+            }
+        }
+    }
+```
 
 
