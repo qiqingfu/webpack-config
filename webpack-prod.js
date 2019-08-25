@@ -30,7 +30,6 @@ if (!PerformanceAnalysis) {
 const resolve = dir => path.resolve(__dirname, dir)
 
 // Webpack plugin to remove unused css.
-// Currently invalid
 const glob = require('glob')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
 const PATHS = {
