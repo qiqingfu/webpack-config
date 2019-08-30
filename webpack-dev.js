@@ -28,7 +28,7 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.vue', '.scss']
     },
-    devtool: 'source-map',
+    devtool: '#source-map',
     module: {
         rules: [
             {
@@ -78,12 +78,11 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpeg|jpg|svg)$/,
-                use: 'file-loader'
-            },
-            {
-                test: /\.png$/,
-                use: 'png-plain-loader'
+                test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
+                loader: 'url-loader',
+                query: {
+                    limit: 10000,
+                }
             }
         ]
     },

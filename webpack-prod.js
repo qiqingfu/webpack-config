@@ -189,6 +189,10 @@ module.exports = smp.wrap({
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(otf|ttf|woff2?|eot)$/,
+                loader: 'url-loader',
             }
         ]
     },
